@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anúncio Local</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Anúncio Local <small>jingle + vídeo para negócio de bairro</small></h1>
+  <span id="status" class="pill">verificando…</span>
+</header>
+
+<main>
+  <!-- 1. Negócio -->
+  <section class="card" id="passo1">
+    <h2><b>1</b> Negócio</h2>
+    <form id="formNegocio" class="row">
+      <input id="nome" placeholder="Nome do negócio (ex.: Padaria Pão de Ouro)" required>
+      <input id="cidade" placeholder="Cidade e UF (ex.: Goiânia GO)">
+      <button>Pesquisar no Google</button>
+    </form>
+    <div id="negocio" hidden>
+      <div class="neg-head">
+        <div><strong id="negNome"></strong> <span id="negCat" class="muted"></span><br><span id="negEnd" class="muted"></span></div>
+        <div class="nota"><span id="negNota"></span>★ <small id="negTotal"></small></div>
+      </div>
+      <ul id="avaliacoes" class="reviews"></ul>
+      <div class="row">
+        <label>UF <select id="uf"></select></label>
+        <label>Estilo <input id="genero"></label>
+        <label>BPM <input id="bpm" type="number" min="60" max="180" style="width:5em"></label>
+        <label>Duração <select id="duracao"><option>15</option><option selected>30</option><option>45</option><option>60</option></select>s</label>
+        <button id="btnCriativo">Gerar letra e roteiro</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Pacote Flow -->
+  <section class="card" id="passo2" hidden>
+    <h2><b>2</b> Pacote para o Google Flow e o Gemini</h2>
+    <p class="muted">Sua assinatura do Flow não libera API. Cole cada prompt no <a href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">Flow</a> (formato 9:16, Veo) e baixe os clipes. Para gerar a música, cole a letra e o estilo no app Gemini (Lyria) e baixe o MP3.</p>
+    <div class="grid2">
+      <div>
+        <h3>Slogan / CTA</h3>
+        <p><input id="slogan"> <input id="cta"></p>
+        <h3>Letra <button class="copy" data-copy="letra">copiar</button></h3>
+        <textarea id="letra" rows="12"></textarea>
+        <h3>Prompt da música <button class="copy" data-copy="promptMusica">copiar</button></h3>
+        <textarea id="promptMusica" rows="4"></textarea>
+      </div>
+      <div>
+        <h3>Cenas (Veo, 8s cada)</h3>
+        <ol id="cenas" class="cenas"></ol>
+        <button id="btnBaixarPacote" class="ghost">Baixar pacote (.txt)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Montagem -->
+  <section class="card" id="passo3" hidden>
+    <h2><b>3</b> Montagem com template</h2>
+    <div class="grid2">
+      <div>
+        <label class="file">Clipes do Flow (vídeo ou imagem, em ordem) <input id="clipes" type="file" accept="video/*,image/*" multiple></label>
+        <label class="file">Música (MP3 do Gemini) <input id="musica" type="file" accept="audio/*"></label>
+        <label class="file">Logo (opcional, PNG) <input id="logo" type="file" accept="image/*"></label>
+        <label>Template
+          <select id="template">
+            <option value="depoimento">Depoimento: avaliações reais do Google</option>
+            <option value="oferta">Oferta: slogan grande e CTA</option>
+            <option value="karaoke">Karaokê: letra na tela</option>
+          </select>
+        </label>
+        <label>Cor da marca <input id="cor" type="color" value="#ffb800"></label>
+        <label>Oferta (template Oferta) <input id="oferta" placeholder="Ex.: Café + pão de queijo R$ 9,90"></label>
+        <div class="row">
+          <button id="btnPreview" class="ghost">▶ Prévia</button>
+          <button id="btnExportar">⬇ Exportar vídeo</button>
+        </div>
+        <p id="exportInfo" class="muted"></p>
+        <a id="download" hidden>Baixar anúncio</a>
+      </div>
+      <div class="stage"><canvas id="canvas" width="1080" height="1920"></canvas></div>
+    </div>
+  </section>
+
+  <p class="muted foot">Depois: gerar Veo/Lyria direto pela API (cobrança à parte), botão para enviar no WhatsApp, lote de negócios via n8n.</p>
+</main>
+<div id="toast" hidden></div>
+<script src="app.js" type="module"></script>
+</body>
+</html>
